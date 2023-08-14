@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forzlp.zhihubackend.mapper.FollowMapper">
+
+    <resultMap id="BaseResultMap" type="com.forzlp.zhihubackend.pojo.Follow">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="followId" column="follow_id" jdbcType="INTEGER"/>
+            <result property="followedId" column="followed_id" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,follow_id,followed_id,
+        create_time
+    </sql>
+    <insert id="follow">
+        INSERT INTO `zh_follow` (follow_id,followed_id,create_time) VALUES (
+                                #{followId},#{followedId},now()
+                                                                           )
+    </insert>
+    <select id="getById" resultType="java.lang.Long">
+        select followed_id from `zh_follow` WHERE follow_id = #{followId}
+    </select>
+    <select id="getFansIdById" resultType="java.lang.Long">
+        SELECT follow_id from `zh_follow` WHERE followed_id = #{id}
+    </select>
+</mapper>

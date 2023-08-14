@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forzlp.zhihubackend.mapper.CommentMapper">
+
+    <resultMap id="BaseResultMap" type="com.forzlp.zhihubackend.pojo.Comment">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="DATE"/>
+            <result property="praCount" column="pra_count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,create_time,pra_count,is_praised
+    </sql>
+    <insert id="save">
+        INSERT INTO `zh_comment` (create_time) VALUES (now());
+    </insert>
+    <update id="praise">
+        update `zh_comment` set is_praised = 1 WHERE id = #{id}
+    </update>
+    <select id="getLastId" resultType="java.lang.Long">
+        SELECT max(id) FROM `zh_comment`
+    </select>
+</mapper>

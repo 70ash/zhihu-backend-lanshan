@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forzlp.zhihubackend.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.forzlp.zhihubackend.pojo.User">
+            <id property="uId" column="u_id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="DATE"/>
+            <result property="personalPro" column="personal_pro" jdbcType="VARCHAR"/>
+            <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <update id="updateUser">
+        UPDATE `zh_user` set `name` = #{name},`password` = #{password},`avatar` = #{avatar} ,`personal_pro` = #{personalPro}, email = #{email} where u_id = #{uId}
+    </update>
+    <update id="member">
+        update `zh_user` set is_member = 1 WHERE u_id = #{id}
+    </update>
+    <select id="getUserByNameAndPassword" resultType="com.forzlp.zhihubackend.pojo.User">
+        select * from zh_user where `name` = #{name} and `password` = #{password}
+    </select>
+    <select id="getById" resultType="com.forzlp.zhihubackend.pojo.User">
+        select *
+        from `zh_user` WHERE u_id = #{uId};
+    </select>
+
+    <insert id="saveUser">
+        INSERT INTO zh_user (`name`,`password`,`avatar`,create_time,personal_pro,email) VALUES (#{name},#{password},#{avatar},now(),#{personalPro},#{email})
+    </insert>
+    <insert id="info">
+        INSERT INTO `zh_user_info` (u_id,msg,create_time) VALUES (#{uId},#{msg},now())
+    </insert>
+    <insert id="saveHistory">
+        INSERT INTO `zh_bro_history` (u_id,type_id,bro_time,bro_id) VALUES (
+                                    #{uId},#{typeId},now(),#{broId}
+                                                                           )
+    </insert>
+
+
+</mapper>

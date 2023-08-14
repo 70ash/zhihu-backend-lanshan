@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forzlp.zhihubackend.mapper.ProblemMapper">
+
+    <resultMap id="BaseResultMap" type="com.forzlp.zhihubackend.pojo.Problem">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="DATE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,title,content,
+        create_time,is_collected
+    </sql>
+    <insert id="saveQuestion">
+        INSERT INTO `zh_problem` (title,content,create_time,author_id,ask_reply) VALUES (#{title},#{content},now(),#{authorId},#{askReply})
+    </insert>
+    <update id="collect">
+        UPDATE `zh_problem` SET is_collected = 1 WHERE id = #{pId}
+    </update>
+    <update id="praise">
+        update `zh_problem` set pra_count = #{praCount} WHERE id = #{id}
+    </update>
+    <delete id="delProblemById">
+        DELETE FROM zh_problem WHERE id = #{id}
+    </delete>
+    <select id="getProblemById" resultType="com.forzlp.zhihubackend.pojo.Problem">
+        select * from `zh_problem` WHERE id = #{id}
+    </select>
+    <select id="getLastId" resultType="java.lang.Long">
+        SELECT max(id) from `zh_problem`
+    </select>
+    <select id="countBySearch" resultType="java.lang.Integer">
+        select count(*)
+        from `zh_problem` WHERE  title regexp #{search};
+    </select>
+    <select id="listBySearch" resultType="com.forzlp.zhihubackend.pojo.Problem">
+        SELECT * from `zh_problem` WHERE title regexp #{search}
+        order by create_time desc limit #{limit},#{size}
+    </select>
+</mapper>

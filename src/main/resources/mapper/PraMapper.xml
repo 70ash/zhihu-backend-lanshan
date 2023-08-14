@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forzlp.zhihubackend.mapper.PraMapper">
+
+    <resultMap id="BaseResultMap" type="com.forzlp.zhihubackend.pojo.Pra">
+            <id property="praId" column="pra_id" jdbcType="BIGINT"/>
+            <result property="article" column="article" jdbcType="TINYINT"/>
+            <result property="problem" column="problem" jdbcType="TINYINT"/>
+            <result property="comment" column="comment" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        pra_id,article,problem,
+        comment
+    </sql>
+    <insert id="praiseArt">
+        INSERT INTO `zh_pra` (a_id) values (#{aId})
+    </insert>
+    <insert id="praisePro">
+        INSERT INTO `zh_pra` (p_id) values (#{pId})
+    </insert>
+    <insert id="savePra">
+        INSERT INTO `zh_user_pra` (u_id,pra_id) VALUES (#{uId},#{praId})
+    </insert>
+    <select id="getLastId" resultType="java.lang.Long">
+        select max(id)
+        from `zh_pra`;
+    </select>
+    <select id="getById" resultType="com.forzlp.zhihubackend.pojo.Problem">
+        select *
+        from `zh_problem` WHERE id = #{pId};
+    </select>
+</mapper>
