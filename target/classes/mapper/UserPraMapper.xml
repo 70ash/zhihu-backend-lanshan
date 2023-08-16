@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forzlp.zhihubackend.mapper.UserPraMapper">
+    <delete id="delById">
+        DELETE FROM `zh_user_pra` WHERE pra_id = #{praId} and u_id = #{uId}
+    </delete>
+
+    <select id="getById" resultType="java.lang.Long">
+        SELECT pra_id FROM `zh_user_pra` WHERE u_id = #{uId}
+    </select>
+    <select id="getUIdByPraId" resultType="java.lang.Long">
+        SELECT u_id from `zh_user_pra` WHERE pra_id = #{aLong}
+    </select>
+</mapper>
