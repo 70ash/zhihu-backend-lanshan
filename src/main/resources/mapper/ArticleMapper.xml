@@ -34,4 +34,8 @@
     <select id="getById" resultType="com.forzlp.zhihubackend.pojo.Article">
         SELECT * from `zh_article` WHERE `id` = #{id}
     </select>
+    <select id="listHot" resultType="com.forzlp.zhihubackend.pojo.Article">
+        select *
+        from `zh_article` ORDER BY pra_count DESC ;
+    </select>
 </mapper>

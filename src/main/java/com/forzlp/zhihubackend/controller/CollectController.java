@@ -83,7 +83,7 @@ public class CollectController {
         Article article = articleService.getById(aId);
         int colCount = article.getColCount()-1;
         int j = articleService.collect(colCount,aId);
-        if(i+j == 1) {
+        if(i+j == 2) {
             return Result.success("取消收藏成功");
         }else {
             return Result.fail("取消收藏失败");

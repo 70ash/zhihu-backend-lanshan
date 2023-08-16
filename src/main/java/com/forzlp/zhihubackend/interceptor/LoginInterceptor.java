@@ -16,8 +16,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         User user = (User) request.getSession().getAttribute("user");
         // 未登录，则去登录
         if (user == null) {
-            response.setCharacterEncoding("GBK");
-            response.getWriter().print("请先登录");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().print("please login");
             return false;
         } else {
             return true;

@@ -183,4 +183,12 @@ public class ArticleController {
         }
         return Result.success("取消点赞成功");
     }
+    @GetMapping("/hotArticle")
+    public Result hotArticle() {
+        List<Article> articles = service.listHot();
+        for (Article article :articles) {
+            article.setCTime(DateFormat.formatDate(article.getCreateTime()));
+        }
+        return Result.success(articles);
+    }
 }

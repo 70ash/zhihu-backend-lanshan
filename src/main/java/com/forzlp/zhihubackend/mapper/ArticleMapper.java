@@ -28,6 +28,8 @@ public interface ArticleMapper{
     int praise(int praCount,Long aId);
 
     Article getById(Long id);
+
+    List<Article> listHot();
 }
 
 

@@ -40,7 +40,6 @@ public class IndexController {
     // 注册
     @PostMapping("/signIn")
     public Result<User> signIn(@RequestBody User user) {
-
         log.info("使用MD5加密");
         String encrypt = MD5.encrypt(user.getPassword());
         user.setPassword(encrypt);

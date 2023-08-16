@@ -50,6 +50,11 @@ public class ArticleServiceImpl implements ArticleService{
         return mapper.getById(id);
     }
 
+    @Override
+    public List<Article> listHot() {
+        return mapper.listHot();
+    }
+
 }
 
 
