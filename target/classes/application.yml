@@ -1,5 +1,7 @@
 
 spring:
+  thymeleaf:
+    mode: HTML
   datasource:
     url: jdbc:mysql://localhost:3306/zhihu-backend
     username: root

@@ -33,6 +33,8 @@ public interface UserMapper{
     List<BroHistory> listHistory(Long uId);
 
     List<UserInfo> listUserInfo(Long uId);
+
+    Long getLastId();
 }
 
 

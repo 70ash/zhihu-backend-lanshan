@@ -42,6 +42,10 @@
         select *
         from `zh_user_info` WHERE u_id = #{uId};
     </select>
+    <select id="getLastId" resultType="java.lang.Long">
+        select max(u_id)
+        from `zh_user`;
+    </select>
 
     <insert id="saveUser">
         INSERT INTO zh_user (`name`,`password`,`avatar`,create_time,personal_pro,email) VALUES (#{name},#{password},#{avatar},now(),#{personalPro},#{email})

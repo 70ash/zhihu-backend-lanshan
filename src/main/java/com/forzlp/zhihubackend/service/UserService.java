@@ -34,4 +34,6 @@ public interface UserService {
     List<BroHistory> listHistory(Long uId);
 
     List<UserInfo> listUserInfo(Long uId);
+
+    Long getLastId();
 }

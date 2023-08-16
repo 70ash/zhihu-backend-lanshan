@@ -76,6 +76,11 @@ public class UserServiceImpl implements UserService
         return mapper.listUserInfo(uId);
     }
 
+    @Override
+    public Long getLastId() {
+        return mapper.getLastId();
+    }
+
 }
 
 

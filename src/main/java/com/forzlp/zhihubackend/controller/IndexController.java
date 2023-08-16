@@ -25,15 +25,13 @@ public class IndexController {
     private UserService service;
     // 登录
     @GetMapping("/login")
-    public Result login(@RequestBody User user) {
-        if(user == null) return Result.fail();
-        String name = user.getName();
-        String password = user.getPassword();
+    public Result login(String name,String password,HttpSession session) {
         String encrypt = MD5.encrypt(password);
         User myUser = service.getUserByNameAndPassword(name, encrypt);
+        session.setAttribute("user",myUser);
         if(myUser != null) {
             log.info("登录成功");
-            return Result.success(user);
+            return Result.success(myUser);
         }else {
             return Result.fail("用户名或密码错误");
         }
@@ -42,14 +40,17 @@ public class IndexController {
     // 注册
     @PostMapping("/signIn")
     public Result<User> signIn(@RequestBody User user) {
+
         log.info("使用MD5加密");
         String encrypt = MD5.encrypt(user.getPassword());
         user.setPassword(encrypt);
         int i = service.saveUser(user);
+        Long id = service.getLastId();
+        User user1 = service.getById(id);
         if(i == 1){
-            user.setCTime(DateFormat.formatDate(user.getCreateTime()));
+            user1.setCTime(DateFormat.formatDate(user1.getCreateTime()));
             log.info("注册成功");
-            return Result.success(user);
+            return Result.success(user1);
         }else {
             return Result.fail();
         }
