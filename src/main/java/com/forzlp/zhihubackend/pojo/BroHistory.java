@@ -1,5 +1,6 @@
 package com.forzlp.zhihubackend.pojo;
 
+import lombok.Data;
 import org.omg.CORBA.PRIVATE_MEMBER;
 
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.Date;
  * @author zlp
  * @date 2023/8/11 22:35
  */
+@Data
 public class BroHistory {
     private Long id;
     private Long uId;

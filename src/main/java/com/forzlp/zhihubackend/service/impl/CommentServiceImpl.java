@@ -29,6 +29,21 @@ public class CommentServiceImpl implements CommentService{
     public int praise(Long id) {
         return mapper.praise(id);
     }
+
+    @Override
+    public int commentPro(int repCount, Long pId) {
+        return mapper.commentPro(repCount,pId);
+    }
+
+    @Override
+    public int commentArt(int repCount, Long aId) {
+        return mapper.commentArt(repCount,aId);
+    }
+
+    @Override
+    public Comment getById(Long aLong) {
+        return mapper.getById(aLong);
+    }
 }
 
 

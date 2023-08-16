@@ -6,6 +6,8 @@ import com.forzlp.zhihubackend.pojo.Problem;
 import com.forzlp.zhihubackend.pojo.UserPra;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author zlp
  * @date 2023/8/4 16:59
@@ -22,6 +24,14 @@ public interface PraMapper{
     int savePra(UserPra userPra);
 
     Problem getById(Long pId);
+
+    Long getAIdById(Long praId);
+
+    List<Long> getPraIdByAId(Long aId);
+
+    int delPraById(Long praId);
+
+    Long getpIdById(Long aLong);
 }
 
 

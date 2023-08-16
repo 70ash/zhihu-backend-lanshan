@@ -16,7 +16,7 @@ public class UserInfo {
     private Long uId;
     private String msg;
     private Date createTime;
-
+    private String cTime;
     public UserInfo() {
     }
 

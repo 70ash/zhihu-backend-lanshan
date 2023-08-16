@@ -17,6 +17,8 @@ public interface FollowMapper{
     List<Long> getById(Long followId);
 
     List<Long> getFansIdById(Long id);
+
+    int cancelFollow(Long uId, Long followedId);
 }
 
 

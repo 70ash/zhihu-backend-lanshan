@@ -15,10 +15,13 @@
     </resultMap>
 
     <update id="updateUser">
-        UPDATE `zh_user` set `name` = #{name},`password` = #{password},`avatar` = #{avatar} ,`personal_pro` = #{personalPro}, email = #{email} where u_id = #{uId}
+        UPDATE `zh_user` set `name` = #{name},`password` = #{password},`avatar` = #{avatar} ,`personal_pro` = #{personalPro}, email = #{email} where u_id = #{id}
     </update>
     <update id="member">
         update `zh_user` set is_member = 1 WHERE u_id = #{id}
+    </update>
+    <update id="delMember">
+       UPDATE `zh_user` set is_member = 0 WHERE u_id = #{id};
     </update>
     <select id="getUserByNameAndPassword" resultType="com.forzlp.zhihubackend.pojo.User">
         select * from zh_user where `name` = #{name} and `password` = #{password}
@@ -26,6 +29,18 @@
     <select id="getById" resultType="com.forzlp.zhihubackend.pojo.User">
         select *
         from `zh_user` WHERE u_id = #{uId};
+    </select>
+    <select id="getByUserName" resultType="com.forzlp.zhihubackend.pojo.User">
+        select *
+        from `zh_user` WHERE `name` = #{username};
+    </select>
+    <select id="listHistory" resultType="com.forzlp.zhihubackend.pojo.BroHistory">
+        select *
+        from zh_bro_history WHERE u_id = #{uId};
+    </select>
+    <select id="listUserInfo" resultType="com.forzlp.zhihubackend.pojo.UserInfo">
+        select *
+        from `zh_user_info` WHERE u_id = #{uId};
     </select>
 
     <insert id="saveUser">

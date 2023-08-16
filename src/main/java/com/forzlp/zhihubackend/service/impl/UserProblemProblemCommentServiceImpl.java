@@ -7,6 +7,8 @@ import com.forzlp.zhihubackend.service.UserProblemCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author zlp
  * @date 2023/8/6 21:23
@@ -18,6 +20,11 @@ public class UserProblemProblemCommentServiceImpl implements UserProblemCommentS
     @Override
     public int save(UserProblemComment userProblemComment) {
         return mapper.save(userProblemComment);
+    }
+
+    @Override
+    public List<Long> getCIdByPId(Long pId) {
+        return mapper.getCIdByPId(pId);
     }
 }
 

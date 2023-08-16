@@ -31,8 +31,8 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
-    public int collect(Long aId) {
-        return mapper.collect(aId);
+    public int collect(int colCount, Long aId) {
+        return mapper.collect(colCount,aId);
     }
 
     @Override

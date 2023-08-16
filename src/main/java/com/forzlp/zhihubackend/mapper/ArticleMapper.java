@@ -21,7 +21,7 @@ public interface ArticleMapper{
 
     Long getLastId();
 
-    int collect(Long aId);
+    int collect(int colCount, Long aId);
 
     List<Article> listBySearch(Page page);
 

@@ -24,6 +24,9 @@
     <insert id="savePra">
         INSERT INTO `zh_user_pra` (u_id,pra_id) VALUES (#{uId},#{praId})
     </insert>
+    <delete id="delPraById">
+        DELETE FROM `zh_pra` WHERE `id` = #{praId}
+    </delete>
     <select id="getLastId" resultType="java.lang.Long">
         select max(id)
         from `zh_pra`;
@@ -31,5 +34,17 @@
     <select id="getById" resultType="com.forzlp.zhihubackend.pojo.Problem">
         select *
         from `zh_problem` WHERE id = #{pId};
+    </select>
+    <select id="getAIdById" resultType="java.lang.Long">
+        select a_id
+        from `zh_pra` WHERE id = #{praId};
+    </select>
+    <select id="getPraIdByAId" resultType="java.lang.Long">
+        select `id`
+        from `zh_pra` WHERE a_id = #{aId};
+    </select>
+    <select id="getpIdById" resultType="java.lang.Long">
+        select p_id
+        from `zh_pra` WHERE id = #{aLong};
     </select>
 </mapper>

@@ -9,6 +9,9 @@ import com.forzlp.zhihubackend.service.PraService;
 import com.forzlp.zhihubackend.mapper.PraMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 /**
  * @author zlp
  * @date 2023/8/4 17:14
@@ -40,6 +43,26 @@ public class PraServiceImpl implements PraService{
     @Override
     public Problem getById(Long pId) {
         return mapper.getById(pId);
+    }
+
+    @Override
+    public Long getAIdById(Long praId) {
+        return mapper.getAIdById(praId);
+    }
+
+    @Override
+    public List<Long> getPraIdByAId(Long aId) {
+        return mapper.getPraIdByAId(aId);
+    }
+
+    @Override
+    public int delPraById(Long praId) {
+        return mapper.delPraById(praId);
+    }
+
+    @Override
+    public Long getpIdById(Long aLong) {
+        return mapper.getpIdById(aLong);
     }
 }
 

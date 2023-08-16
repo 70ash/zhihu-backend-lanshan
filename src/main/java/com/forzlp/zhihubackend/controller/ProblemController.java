@@ -1,10 +1,8 @@
 package com.forzlp.zhihubackend.controller;
 
 import com.forzlp.zhihubackend.pojo.*;
-import com.forzlp.zhihubackend.service.FollowService;
-import com.forzlp.zhihubackend.service.PraService;
-import com.forzlp.zhihubackend.service.ProblemService;
-import com.forzlp.zhihubackend.service.UserService;
+import com.forzlp.zhihubackend.service.*;
+import com.forzlp.zhihubackend.utils.DateFormat;
 import com.forzlp.zhihubackend.utils.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +26,14 @@ public class ProblemController {
     private UserService userService;
     private PraService praService;
     private FollowService followService;
+    private UserPraService userPraService;
     @Autowired
-    public ProblemController(ProblemService problemService,UserService userService,PraService praService,FollowService followService) {
+    public ProblemController(ProblemService problemService,UserService userService,PraService praService,FollowService followService,UserPraService userPraService) {
         this.problemService = problemService;
         this.userService = userService;
         this.praService = praService;
         this.followService = followService;
+        this.userPraService = userPraService;
     }
 
     @GetMapping("/findProblem")
@@ -43,13 +43,16 @@ public class ProblemController {
         Problem problem = problemService.getProblemById(pId);
         if(problem != null) {
             int isMember = user.getIsMember();
+            System.out.println(isMember);
             // 根据是否为会员完全展示
             if(isMember == 0){
                 problem.setFullDisplay(0);
-               problem.setFullDisplay(1);
+            }else {
+                problem.setFullDisplay(1);
             }
             BroHistory broHistory = new BroHistory(uId, 0L, pId);
             int i = userService.saveHistory(broHistory);
+            problem.setCTime(DateFormat.formatDate(problem.getCreateTime()));
             return Result.success(problem);
         }else {
             return Result.fail("没有找到问题");
@@ -70,17 +73,21 @@ public class ProblemController {
         List<Long> followIds = followService.getFansIdById(id);
         String name = userService.getById(id).getName();
         int askReply = problem.getAskReply();
-        String s = askReply == 0?"提出了问题":"回答了问题";
+        String s = askReply == 0?"提出了问题《":"回答了问题《";
         // 根据粉丝id给粉丝发通知
         for (Long aLong :followIds) {
-            UserInfo userInfo = new UserInfo(aLong, "你的关注"+ name + s + problem.getTitle());
+            UserInfo userInfo = new UserInfo(aLong, "你的关注"+ name + s + problem.getTitle() + "》");
             int i = userService.info(userInfo);
             if(i == 1) log.info("发送通知成功");
         }
         int i = problemService.saveQuestion(problem);
         if(i == 1) {
             log.info("发布问题成功");
-            return Result.success();
+            if(problem.getAskReply()==0){
+                return Result.success("提出问题成功");
+            }else {
+                return Result.success("回答问题成功");
+            }
         }else {
             return Result.fail();
         }
@@ -94,13 +101,13 @@ public class ProblemController {
      * @return
      */
     @GetMapping("/listPro")
-    public Result listPro(String search,int limit,int size) {
-        Page page = new Page(search,limit,size);
+    public Result listPro(String search,int cur,int size) {
+        Page page = new Page(search,cur,size);
+        page.setLimit((cur-1)*3);
         int i = problemService.countBySearch(page.getSearch());
-        System.out.println(i);
         List<Problem> list = problemService.listBySearch(page);
         for (Problem problem :list) {
-            System.out.println(list);
+            problem.setCTime(DateFormat.formatDate(problem.getCreateTime()));
         }
         System.out.println(i);
         return Result.success(list);
@@ -115,6 +122,13 @@ public class ProblemController {
     public Result praisePro(Long uId,Long pId) {
         // 根据id查询文章
         Problem problem = praService.getById(pId);
+        // 查询是否点赞过这篇文章(不能重复点赞)
+        // 查询用户点赞过的文章
+        List<Long> praIds = userPraService.getById(uId);
+        for (Long aLong :praIds) {
+            Long getpIdById = praService.getpIdById(aLong);
+            if(getpIdById == pId) return Result.fail("你已经点赞过这篇问题了");
+        }
         // 查询点赞的人是不是作者的关注.
         List<Long> followedIds;
         // 作者id
@@ -125,7 +139,7 @@ public class ProblemController {
             if (uId == aLong) {
                 String name = userService.getById(aLong).getName();
                 // 发送消息
-                UserInfo userInfo = new UserInfo(followId, "你的关注"+ name + "给你的问题" + problem.getTitle() + "点赞了");
+                UserInfo userInfo = new UserInfo(followId, "你的关注"+ name + "给你的问题《" + problem.getTitle() + "》点赞了");
                 int i = userService.info(userInfo);
                 if(i == 1) log.info("发送通知成功");
                 break;

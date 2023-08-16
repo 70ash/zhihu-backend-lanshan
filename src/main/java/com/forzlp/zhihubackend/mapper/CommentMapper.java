@@ -16,6 +16,12 @@ public interface CommentMapper{
     Long getLastId();
 
     int praise(Long id);
+
+    int commentPro(int repCount, Long pId);
+
+    int commentArt(int repCount, Long aId);
+
+    Comment getById(Long id);
 }
 
 

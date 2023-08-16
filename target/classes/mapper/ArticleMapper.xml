@@ -16,16 +16,16 @@
         create_time
     </sql>
     <insert id="saveArticle">
-        INSERT INTO `zh_article` (title,content,create_time) VALUES (#{title},#{content},now())
+        INSERT INTO `zh_article` (title,content,create_time,author_id) VALUES (#{title},#{content},now(),#{authorId})
     </insert>
     <update id="collect">
-        UPDATE `zh_article` SET is_collected = 1 WHERE `id` = #{aId}
+        UPDATE `zh_article` SET col_count = #{colCount} WHERE `id` = #{aId}
     </update>
     <update id="praise">
         UPDATE `zh_article` set pra_count = #{praCount} where `id` = #{aId}
     </update>
     <select id="getLastId" resultType="java.lang.Long">
-        select max(id) from `zh_article` set
+        select max(id) from `zh_article`
     </select>
     <select id="listBySearch" resultType="com.forzlp.zhihubackend.pojo.Article">
         SELECT * from `zh_article` WHERE title regexp #{search}

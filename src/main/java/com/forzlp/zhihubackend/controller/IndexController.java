@@ -2,13 +2,14 @@ package com.forzlp.zhihubackend.controller;
 
 import com.forzlp.zhihubackend.pojo.User;
 import com.forzlp.zhihubackend.service.UserService;
-import com.forzlp.zhihubackend.utils.JwtHelper;
+import com.forzlp.zhihubackend.utils.DateFormat;
 import com.forzlp.zhihubackend.utils.MD5;
 import com.forzlp.zhihubackend.utils.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
 /**
@@ -30,14 +31,11 @@ public class IndexController {
         String password = user.getPassword();
         String encrypt = MD5.encrypt(password);
         User myUser = service.getUserByNameAndPassword(name, encrypt);
-        String token = JwtHelper.createToken(user.getUId(), user.getName());
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("token",token);
         if(myUser != null) {
             log.info("登录成功");
-            return Result.success(map);
+            return Result.success(user);
         }else {
-            return Result.fail();
+            return Result.fail("用户名或密码错误");
         }
     }
 
@@ -49,6 +47,7 @@ public class IndexController {
         user.setPassword(encrypt);
         int i = service.saveUser(user);
         if(i == 1){
+            user.setCTime(DateFormat.formatDate(user.getCreateTime()));
             log.info("注册成功");
             return Result.success(user);
         }else {

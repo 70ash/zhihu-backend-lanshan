@@ -15,11 +15,11 @@ import lombok.Data;
 @TableName(value ="zh_follow")
 @Data
 public class Follow implements Serializable {
-    private Integer id;
+    private Long id;
 
-    private Integer followId;
+    private Long followId;
 
-    private Integer followedId;
+    private Long followedId;
 
     private Date createTime;
 

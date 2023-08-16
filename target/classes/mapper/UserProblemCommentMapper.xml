@@ -6,7 +6,6 @@
 
     <resultMap id="BaseResultMap" type="com.forzlp.zhihubackend.pojo.UserProblemComment">
             <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="u_P_Id" column="u_id" jdbcType="BIGINT"/>
             <result property="cId" column="c_id" jdbcType="BIGINT"/>
     </resultMap>
 
@@ -14,6 +13,10 @@
         id,u_id,c_id
     </sql>
     <insert id="save">
-        INSERT INTO `zh_user_problem_comment` (u_p_id,c_id) VALUES (#{u_P_Id},#{cId})
+        INSERT INTO `zh_user_problem_comment` (p_id,c_id) VALUES (#{pId},#{cId})
     </insert>
+    <select id="getCIdByPId" resultType="java.lang.Long">
+        select c_id
+        from `zh_user_problem_comment` WHERE p_id = #{pId};
+    </select>
 </mapper>

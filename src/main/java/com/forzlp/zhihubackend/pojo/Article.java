@@ -17,6 +17,9 @@ public class Article implements Serializable {
     private String title;
     private String content;
     private Date createTime;
+    // 展示给前端的时间
+    private String cTime;
+    private String broTime;
     // 点赞数
     private int praCount;
     // 收藏数

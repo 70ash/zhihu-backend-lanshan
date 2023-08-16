@@ -8,12 +8,16 @@ import com.forzlp.zhihubackend.service.UserService;
 import com.forzlp.zhihubackend.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 /**
  * @author zlp
  * @date 2023/8/4 17:25
  */
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService
+{
     @Autowired
     private UserMapper mapper;
     @Override
@@ -51,6 +55,27 @@ public class UserServiceImpl implements UserService{
     public int saveHistory(BroHistory broHistory) {
         return mapper.saveHistory(broHistory);
     }
+
+    @Override
+    public User getByUserName(String username) {
+        return mapper.getByUserName(username);
+    }
+
+    @Override
+    public int delMember(Long id) {
+        return mapper.delMember(id);
+    }
+
+    @Override
+    public List<BroHistory> listHistory(Long uId) {
+        return mapper.listHistory(uId);
+    }
+
+    @Override
+    public List<UserInfo> listUserInfo(Long uId) {
+        return mapper.listUserInfo(uId);
+    }
+
 }
 
 

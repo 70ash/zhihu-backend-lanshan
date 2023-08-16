@@ -18,8 +18,9 @@ public class Comment implements Serializable {
     private Long id;
 
     private Date createTime;
-
+    private String cTime;
     private Integer praCount;
     // 作者id
     private Long authorId;
+    private String content;
 }

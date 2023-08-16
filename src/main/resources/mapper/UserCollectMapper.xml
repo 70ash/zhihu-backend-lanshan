@@ -18,5 +18,11 @@
     <insert id="saveArt">
         INSERT INTO `zh_user_collect` (u_id,a_id) VALUES (#{uId},#{aId})
     </insert>
+    <delete id="delById">
+        DELETE FROM `zh_user_collect` WHERE u_id = #{uId} and a_id = #{aId}
+    </delete>
+    <select id="getAIdByUId" resultType="java.lang.Long">
+        SELECT a_id FROM `zh_user_collect` WHERE u_id = #{uId}
+    </select>
 
 </mapper>

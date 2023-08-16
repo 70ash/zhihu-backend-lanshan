@@ -32,6 +32,11 @@ public class FollowServiceImpl implements FollowService{
     public List<Long> getFansIdById(Long id) {
         return mapper.getFansIdById(id);
     }
+
+    @Override
+    public int cancelFollow(Long uId, Long followedId) {
+        return mapper.cancelFollow(uId,followedId);
+    }
 }
 
 

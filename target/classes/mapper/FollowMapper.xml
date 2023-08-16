@@ -20,6 +20,9 @@
                                 #{followId},#{followedId},now()
                                                                            )
     </insert>
+    <delete id="cancelFollow">
+        DELETE FROM `zh_follow` WHERE follow_id = #{uId} and followed_id = #{followedId}
+    </delete>
     <select id="getById" resultType="java.lang.Long">
         select followed_id from `zh_follow` WHERE follow_id = #{followId}
     </select>

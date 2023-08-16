@@ -17,6 +17,8 @@ public class Problem implements Serializable {
     private String title;
     private String content;
     private Date createTime;
+    private String cTime;
+    private String broTime;
     // 评论数量
     private int repCount;
     // 点赞数量

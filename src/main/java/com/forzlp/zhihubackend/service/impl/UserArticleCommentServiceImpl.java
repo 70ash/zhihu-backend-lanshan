@@ -7,6 +7,8 @@ import com.forzlp.zhihubackend.mapper.UserArticleCommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author zlp
  * @date 2023/8/6 21:36
@@ -18,6 +20,11 @@ public class UserArticleCommentServiceImpl implements UserArticleCommentService{
     @Override
     public int save(UserArticleComment userArticleComment) {
         return mapper.save(userArticleComment);
+    }
+
+    @Override
+    public List<Long> getCIdByAId(Long aId) {
+        return mapper.getCIdByAId(aId);
     }
 }
 

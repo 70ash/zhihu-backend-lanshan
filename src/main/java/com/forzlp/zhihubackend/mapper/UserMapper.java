@@ -5,6 +5,8 @@ import com.forzlp.zhihubackend.pojo.User;
 import com.forzlp.zhihubackend.pojo.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author zlp
  * @date 2023/8/4 17:07
@@ -23,6 +25,14 @@ public interface UserMapper{
     int info(UserInfo userInfo);
 
     int saveHistory(BroHistory broHistory);
+
+    User getByUserName(String username);
+
+    int delMember(Long id);
+
+    List<BroHistory> listHistory(Long uId);
+
+    List<UserInfo> listUserInfo(Long uId);
 }
 
 

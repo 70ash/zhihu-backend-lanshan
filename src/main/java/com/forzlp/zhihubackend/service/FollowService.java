@@ -16,4 +16,6 @@ public interface FollowService {
     List<Long> getById(Long followId);
 
     List<Long> getFansIdById(Long id);
+
+    int cancelFollow(Long uId, Long followedId);
 }

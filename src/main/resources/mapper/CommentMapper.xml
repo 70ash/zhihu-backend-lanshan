@@ -14,12 +14,25 @@
         id,create_time,pra_count,is_praised
     </sql>
     <insert id="save">
-        INSERT INTO `zh_comment` (create_time) VALUES (now());
+        INSERT INTO `zh_comment` (create_time,author_id,content) VALUES (now(),#{authorId},#{content});
     </insert>
     <update id="praise">
         update `zh_comment` set is_praised = 1 WHERE id = #{id}
     </update>
+    <update id="commentPro">
+        update `zh_problem`
+        set rep_count = #{repCount}
+        where id = #{pId};
+    </update>
+    <update id="commentArt">
+        update `zh_article`
+        set rep_count = #{repCount}
+        where id = #{aId};
+    </update>
     <select id="getLastId" resultType="java.lang.Long">
         SELECT max(id) FROM `zh_comment`
+    </select>
+    <select id="getById" resultType="com.forzlp.zhihubackend.pojo.Comment">
+        SELECT * from `zh_comment` WHERE `id` = #{id}
     </select>
 </mapper>
